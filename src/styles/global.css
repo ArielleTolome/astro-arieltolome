@@ -156,16 +156,12 @@ h1, h2, h3 {
 .card-cover {
 	aspect-ratio: 4 / 3;
 	border-radius: 20px;
-	display: grid;
-	place-items: center;
-	padding: 24px;
+	overflow: hidden;
 }
-.card-cover span {
-	font-family: var(--serif);
-	font-size: 42px;
-	font-weight: 500;
-	color: var(--forest);
-	opacity: 0.85;
+.card-cover img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .card h2 {
 	font-size: 22px;
@@ -216,16 +212,12 @@ h1, h2, h3 {
 }
 .cover-block {
 	border-radius: 20px;
-	min-height: 240px;
-	display: grid;
-	place-items: center;
+	overflow: hidden;
 	margin-bottom: 28px;
 }
-.cover-block span {
-	font-family: var(--serif);
-	font-size: 72px;
-	color: var(--forest);
-	opacity: 0.8;
+.cover-block img {
+	width: 100%;
+	height: auto;
 }
 .facts {
 	display: grid;

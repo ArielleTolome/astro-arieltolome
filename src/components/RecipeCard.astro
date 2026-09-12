@@ -9,8 +9,8 @@ const { recipe } = Astro.props;
 ---
 
 <a class="card" href={`/recipes/${recipe.id}`}>
-	<div class="card-cover" style={`background:${recipe.data.accent}`}>
-		<span>{recipe.data.title.slice(0, 1)}</span>
+	<div class="card-cover">
+		<img src={`/recipes/${recipe.id}.jpg`} alt={recipe.data.title} width="1152" height="864" />
 	</div>
 	<p class="more">{recipe.data.category}</p>
 	<h2>{recipe.data.title}</h2>

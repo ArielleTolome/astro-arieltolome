@@ -27,8 +27,8 @@ const date = entry.data.pubDate.toLocaleDateString('en-US', {
 		</div>
 		<h1>{entry.data.title}</h1>
 		<p class="byline">{date} · Pantry demo</p>
-		<div class="cover-block" style={`background:${entry.data.accent}`}>
-			<span>{entry.data.title.slice(0, 1)}</span>
+		<div class="cover-block">
+			<img src={`/recipes/${entry.id}.jpg`} alt={entry.data.title} width="1152" height="864" />
 		</div>
 		<div class="facts">
 			<div>Prep time<strong>{entry.data.prepTime}</strong></div>
