@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	recipe: CollectionEntry<'recipes'>;
+}
+
+const { recipe } = Astro.props;
+---
+
+<a class="card" href={`/recipes/${recipe.id}`}>
+	<div class="card-cover" style={`background:${recipe.data.accent}`}>
+		<span>{recipe.data.title.slice(0, 1)}</span>
+	</div>
+	<p class="more">{recipe.data.category}</p>
+	<h2>{recipe.data.title}</h2>
+	<p class="more">Read more →</p>
+</a>

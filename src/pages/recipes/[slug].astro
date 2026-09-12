@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categorySlug } from '../../content.config';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const recipes = await getCollection('recipes');
+	return recipes.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const date = entry.data.pubDate.toLocaleDateString('en-US', {
+	month: 'short',
+	day: 'numeric',
+	year: 'numeric',
+});
+---
+
+<Base title={`${entry.data.title} — Pantry`} description={entry.data.description}>
+	<article class="article wrap">
+		<div class="meta-row">
+			<a class="chip" href={`/category/${categorySlug(entry.data.category)}`}>{entry.data.category}</a>
+		</div>
+		<h1>{entry.data.title}</h1>
+		<p class="byline">{date} · Pantry demo</p>
+		<div class="cover-block" style={`background:${entry.data.accent}`}>
+			<span>{entry.data.title.slice(0, 1)}</span>
+		</div>
+		<div class="facts">
+			<div>Prep time<strong>{entry.data.prepTime}</strong></div>
+			<div>Course<strong>{entry.data.category}</strong></div>
+			<div>Servings<strong>{entry.data.servings}</strong></div>
+		</div>
+		<div class="prose">
+			<Content />
+		</div>
+		<a class="back" href="/">← See all recipes</a>
+	</article>
+</Base>

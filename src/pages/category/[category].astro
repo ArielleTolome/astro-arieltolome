@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { CATEGORIES, categorySlug } from '../../content.config';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const recipes = await getCollection('recipes');
+	return CATEGORIES.map((category) => ({
+		params: { category: categorySlug(category) },
+		props: {
+			category,
+			recipes: recipes
+				.filter((r) => r.data.category === category)
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+const { category, recipes } = Astro.props;
+---
+
+<Base title={`${category} — Pantry`} description={`Demo ${category.toLowerCase()} recipes.`}>
+	<main>
+		<section class="hero wrap">
+			<h1>{category}</h1>
+			<hr class="rule" />
+		</section>
+		<div class="wrap">
+			<CategoryNav current={category} />
+			<section class="grid">
+				{recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+			</section>
+		</div>
+	</main>
+</Base>

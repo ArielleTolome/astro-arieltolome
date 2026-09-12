@@ -1,0 +1,26 @@
+---
+import { CATEGORIES, categorySlug } from '../content.config';
+
+interface Props {
+	current?: string;
+}
+
+const { current } = Astro.props;
+---
+
+<nav class="cats" aria-label="Recipe categories">
+	<a href="/" aria-current={current ? undefined : 'page'}>All</a>
+	{
+		CATEGORIES.map((cat) => (
+			<>
+				<span class="sep" aria-hidden="true">/</span>
+				<a
+					href={`/category/${categorySlug(cat)}`}
+					aria-current={current === cat ? 'page' : undefined}
+				>
+					{cat}
+				</a>
+			</>
+		))
+	}
+</nav>

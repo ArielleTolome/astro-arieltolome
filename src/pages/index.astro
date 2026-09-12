@@ -1,18 +1,29 @@
 ---
+import Base from '../layouts/Base.astro';
+import CategoryNav from '../components/CategoryNav.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import { getCollection } from 'astro:content';
 
+const recipes = (await getCollection('recipes')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>astro.arieltolome.com</title>
-	</head>
-	<body>
-		<h1>Astro on pigeonfi</h1>
-		<p>https://astro.arieltolome.com</p>
-	</body>
-</html>
+<Base title="Recipes — Pantry" description="Explore a demo Astro recipe journal: soups, salads, smoothies, and weeknight mains.">
+	<main>
+		<section class="hero wrap">
+			<h1>Recipes</h1>
+			<hr class="rule" />
+			<blockquote class="quote">
+				“A good pot on the stove is how a kitchen earns its keep.”
+				<cite>Pantry, demo issue</cite>
+			</blockquote>
+		</section>
+		<div class="wrap">
+			<CategoryNav />
+			<section class="grid">
+				{recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+			</section>
+		</div>
+	</main>
+</Base>
