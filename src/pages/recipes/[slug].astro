@@ -20,7 +20,11 @@ const date = entry.data.pubDate.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={`${entry.data.title} — Pantry`} description={entry.data.description}>
+<Base
+	title={`${entry.data.title} — Pantry`}
+	description={entry.data.description}
+	image={`/recipes/${entry.id}.jpg`}
+>
 	<article class="article wrap">
 		<div class="meta-row">
 			<a class="chip" href={`/category/${categorySlug(entry.data.category)}`}>{entry.data.category}</a>
